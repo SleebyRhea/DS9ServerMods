@@ -10,18 +10,16 @@
 ]]
 
 do
-  local __old_path = package.path
   local vanilla_initialize = initialize
   local vanilla_onPlayerCreated = onPlayerCreated
   
-  package.path = package.path .. ";data/scripts/lib/?.lua"
   package.path = package.path .. ";data/scripts/lib/?.lua"
   package.path = package.path .. ";data/scripts/?.lua"
   
   include("utility")
   include("stringutility")
   include("weapontype")
-  include("ds9-lib")("ds9utils-welcomeemail")
+  include("ds9-lib")("ds9-welcomeemail")
   
   local __d = {
     -- Mod Init
@@ -112,46 +110,44 @@ function onPlayerCreated (index)
   
   -- Resources
   __mail.money  = __d.r_money
-  __mail:setResources(
-  __d.r_iron,
-  __d.r_titanium,
-  __d.r_naonite,
-  __d.r_trinium,
-  __d.r_xanion,
-  __d.r_ogonite,
-  __d.r_avorion
-)
+    __mail:setResources(
+    __d.r_iron,
+    __d.r_titanium,
+    __d.r_naonite,
+    __d.r_trinium,
+    __d.r_xanion,
+    __d.r_ogonite,
+    __d.r_avorion
+  )
 
--- Make sure we **actually** generated the initial turret,
--- and then make sure that the number set to be given is
--- greater than 0 before adding it to the player.
-if type(__d.turret) == "userdata" and __d.t_num > 0 then
-  __mail:addTurret(__d.turret)
-  
-  -- If the number mentioned is set higher than 1, generate
-  -- even more turrets and attach them to the email.
-  if __d.t_num > 1 then
-    for i=2, __d.t_num, 1 do
-      __mail:addTurret(__make_turret(__d))
+  -- Make sure we **actually** generated the initial turret,
+  -- and then make sure that the number set to be given is
+  -- greater than 0 before adding it to the player.
+  if type(__d.turret) == "userdata" and __d.t_num > 0 then
+    __mail:addTurret(__d.turret)
+    
+    -- If the number mentioned is set higher than 1, generate
+    -- even more turrets and attach them to the email.
+    if __d.t_num > 1 then
+      for i=2, __d.t_num, 1 do
+        __mail:addTurret(__make_turret(__d))
+      end
     end
+    
+    __turret = true
+  else
+    print("Skipped adding turret to player mail. Datatype is incorrect: <%{t_type}>"%_T % {t_type=type(__d.turret)} )
   end
-  
-  __turret = true
-else
-  print("Skipped adding turret to player mail. Datatype is incorrect: <%{t_type}>"%_T % {t_type=type(__d.turret)} )
-end
 
-if __mailfile then
-  __msgfooter = "Used <"..__d.m_file.."> for mail text."
-end
+  if __mailfile then
+    __msgfooter = "Used <"..__d.m_file.."> for mail text."
+  end
 
-if __turret then
-  __msgfooter = __msgfooter.." Attached "..__d.t_num.." turret[s]"
-end
+  if __turret then
+    __msgfooter = __msgfooter.." Attached "..__d.t_num.." turret[s]"
+  end
 
-__player:addMail(__mail)
-print("Sent welcome email to <${pname}>. ${footer}"%_T % {pname=__player.name,footer=__msgfooter} )
-end
-
-package.path = __old_path
+  __player:addMail(__mail)
+  print("Sent welcome email to <${pname}>. ${footer}"%_T % {pname=__player.name,footer=__msgfooter} )
+  end
 end
