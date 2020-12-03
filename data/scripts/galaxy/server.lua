@@ -19,7 +19,6 @@ do
   include("utility")
   include("stringutility")
   include("weapontype")
-  include("ds9-lib")("ds9-welcomeemail")
   
   local __d = {
     -- Mod Init
