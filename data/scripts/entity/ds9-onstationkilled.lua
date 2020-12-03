@@ -8,20 +8,20 @@ local lastcollision = -1
 function DS9OnStationKilled.initialize()
   if onServer() then
     -- If the entity in question is a pirate, just kill the script.
-    if Entity():getValue("is_pirate") then
+    local e = Entity()
+    if e:getValue("skip_ds9_tracking") then
       terminate()
     end
 
-    Entity():registerCallback("onCollision", "onCollision")
-    Entity():registerCallback("onDestroyed", "onDestroyed")
+    e:registerCallback("onCollision", "onCollision")
+    e:registerCallback("onDestroyed", "onDestroyed")
   end
 end
 
 function DS9OnStationKilled.secure()
   return {
     lastcollider  = lastcollider,
-    lastcollision = lastcollision
-  }
+    lastcollision = lastcollision}
 end
 
 function DS9OnStationKilled.restore(data)
@@ -31,7 +31,7 @@ end
 
 function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
   if onServer() then
-    if Entity():getValue("is_pirate") then
+    if Entity():getValue("skip_ds9_tracking") then
       return
     end
 
@@ -62,8 +62,8 @@ function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
       return
     end
 
-    local x, y           = Sector():getCoordinates()
-    local event          = "playerDestroyedNPCStationEvent"
+    local x, y  = Sector():getCoordinates()
+    local event = "playerDestroyedNPCStationEvent"
     
     if destroyer.isAlliance then
       event = "allianceDestroyedNPCStationEvent"
@@ -72,8 +72,7 @@ function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
     print("${e}: ${x}:${y} ${ai} ${an}"%_T % {
       e=event, x=x, y=y,
       ai=destroyer.index,
-      an=destroyer.name
-    })
+      an=destroyer.name})
   end
 end
 
@@ -82,7 +81,7 @@ end
 -- a pirate, then we output an identifying string.
 function DS9OnStationKilled.onCollision(objectIndexA, objectIndexB, ...)
   if onServer() then
-    if Entity():getValue("is_pirate") then
+    if Entity():getValue("skip_ds9_tracking") then
       return
     end
 
