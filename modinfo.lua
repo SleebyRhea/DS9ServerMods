@@ -1,7 +1,7 @@
 meta =
 {
-  id = "ds9server-mods",
-  name = "ds9server-mods",
+  id = "ds9-servermods",
+  name = "ds9-servermods",
   title = "DS9 Server Mods",
   type = "mod",
   description = "Various scripts/commands in use on the DS9.875 server",
