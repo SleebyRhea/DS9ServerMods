@@ -35,7 +35,7 @@ function AvorionControlShipTracker.updateServer(...)
 
   -- Check all of the scripts assigned to that entity
   local e, s = Entity(), {}
-  for _, n in ipairs(e:getScripts()) do
+  for _, n in pairs(e:getScripts()) do
     if known_unique[n] then
       s[n] = (s[n] and s[n]+1 or 1)
       if s[n] > 1 then
