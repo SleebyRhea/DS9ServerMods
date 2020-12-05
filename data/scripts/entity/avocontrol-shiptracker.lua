@@ -49,12 +49,17 @@ local AvorionControlShipTracker_updateServer = AvorionControlShipTracker.updateS
 function AvorionControlShipTracker.updateServer(...)
   local using_stack_exploit = false
 
+  local e, s = Entity(), {}
+
   if type(AvorionControlShipTracker_updateServer) == "function" then
     AvorionControlShipTracker_updateServer(...)
   end
 
+  if not Server():isOnline(e.factionIndex) then
+    return
+  end
+
   -- Check all of the scripts assigned to that entity
-  local e, s = Entity(), {}
   for _, n in pairs(e:getScripts()) do
     if known_unique[n] then
       s[n] = (s[n] and s[n]+1 or 1)
@@ -77,14 +82,13 @@ function AvorionControlShipTracker.updateServer(...)
     end
 
     if e.playerOwned then
-      if Server():isOnline(e.factionIndex) then
-        if messages_sent < messages_till_kick then
-          messages_sent = messages_sent + 1
-        else
-          print("doPlayerKickEvent: ${p} ${r}"%_T % {
-            p=e.factionIndex,
-            r="Using known exploits despite being warned"})
-        end
+      if messages_sent < messages_till_kick then
+        messages_sent = messages_sent + 1
+        print("Messages till kick: "..tostring(messages_till_kick - messages_sent))
+      else
+        print("doPlayerKickEvent: ${p} ${r}"%_T % {
+          p=e.factionIndex,
+          r="Using known exploits despite being warned"})
       end
 
       print("playerExploitingStackedSystemsEvent: player:${i} ${n}"%_T % {
