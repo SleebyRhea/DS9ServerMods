@@ -1,3 +1,18 @@
+--[[
+
+  AvorionControl - data/scripts/entity/avocontrol-shiptracker.lua
+  ---------------------------------------------------------------
+
+  This builds on the code present in:
+    AvorionControl/mods/data/scripts/entity/avocontrol-shiptracker.lua
+
+  This adds tracking for the stackable unique systems exploit 
+
+  License: BSD-3-Clause
+  https://opensource.org/licenses/BSD-3-Clause
+
+]]
+
 -- List of modules known to be unique. This is temporary, and will be
 -- modified to utilize a better method of handling later on.
 local known_unique = {}
