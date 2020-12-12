@@ -1,9 +1,9 @@
 package.path = package.path .. ";data/scripts/systems/?.lua"
 package.path = package.path .. ";data/scripts/lib/?.lua"
+
 include ("basesystem")
 include ("utility")
 
--- optimization so that energy requirement doesn't have to be read every frame
 FixedEnergyRequirement = true
 Unique = true
 
@@ -25,10 +25,10 @@ function invalidInstall(faction)
   end
 end
 
+
 function onInstalled(seed, rarity, permanent) 
   local faction    = Faction()
   local entity     = Entity()
-  
   
   -- Only allow this to be used on admin ships
   if faction then
@@ -70,6 +70,7 @@ function onInstalled(seed, rarity, permanent)
   addAbsoluteBias(StatsBonuses.CargoHold, 100000)
 end
 
+
 function onUninstalled(seed, rarity, permanent)
   local entity = Entity()
   entity.invincible  = false
@@ -77,22 +78,24 @@ function onUninstalled(seed, rarity, permanent)
   Boarding().boardable = true
 end
 
+
 function getName(seed, rarity)
   return "FUGU-X"%_t
 end
+
 
 function getIcon(seed, rarity)
   return "data/textures/icons/bug-report.png"
 end
 
+
 function getPrice(seed, rarity)
   return 0
 end
 
+
 function getTooltipLines(seed, rarity, permanent)
   local texts = {}
-  table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
-  table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
   table.insert(texts, {ltext = "Invincible"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/tinker.png"})
   table.insert(texts, {ltext = "Velocity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/speedometer.png"})
   table.insert(texts, {ltext = "Acceleration"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/rocket-thruster.png"})
@@ -100,8 +103,11 @@ function getTooltipLines(seed, rarity, permanent)
   table.insert(texts, {ltext = "Energy Capacity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/battery-pack-alt.png"})
   table.insert(texts, {ltext = "Recharge Rate"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/power-unit.png"})
   table.insert(texts, {ltext = "Cargo Hold"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/crate.png"})
+  table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
+  table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
   return texts, nil
 end
+
 
 function getDescriptionLines(seed, rarity, permanent)
   return {
