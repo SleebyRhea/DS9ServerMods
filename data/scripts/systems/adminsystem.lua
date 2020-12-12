@@ -83,6 +83,8 @@ end
 
 function getTooltipLines(seed, rarity, permanent)
   local texts = {}
+  table.insert(texts, {ltext = "Dockable"%_t, rtext = "NO", icon = "data/textures/icons/tinker.png", boosted = permanent})
+  table.insert(texts, {ltext = "Boardable"%_t, rtext = "NO", icon = "data/textures/icons/tinker.png", boosted = permanent})
   table.insert(texts, {ltext = "Invincible"%_t, rtext = "YES", icon = "data/textures/icons/tinker.png", boosted = permanent})
   table.insert(texts, {ltext = "Velocity"%_t, rtext = "YES", icon = "data/textures/icons/speedometer.png", boosted = permanent})
   table.insert(texts, {ltext = "Acceleration"%_t, rtext = "YES", icon = "data/textures/icons/rocket-thruster.png", boosted = permanent})
