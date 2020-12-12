@@ -103,7 +103,6 @@ function getTooltipLines(seed, rarity, permanent)
   table.insert(texts, {ltext = "Energy Capacity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/battery-pack-alt.png"})
   table.insert(texts, {ltext = "Recharge Rate"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/power-unit.png"})
   table.insert(texts, {ltext = "Cargo Hold"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/crate.png"})
-  table.insert(texts, {ltext = "Rotation"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/move.png"})
   table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/anchor.png"})
   table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/boarding-malus.png"})
   return texts, nil
