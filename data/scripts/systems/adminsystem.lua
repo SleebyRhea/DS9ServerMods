@@ -68,14 +68,27 @@ function onInstalled(seed, rarity, permanent)
   addBaseMultiplier(StatsBonuses.EnergyCapacity, 1000)
   addBaseMultiplier(StatsBonuses.BatteryRecharge, 100)
   addAbsoluteBias(StatsBonuses.CargoHold, 100000)
+  
+  -- Set rotation bonuses
+  local thrusters      = Thrusters()
+  thrusters.basePitch  = thrusters.basePitch + 4.0
+  thrusters.baseYaw    = thrusters.baseYaw + 4.0
+  thrusters.baseRoll   = thrusters.baseRoll + 4.0
+  thrusters.fixedStats = true
 end
 
 
 function onUninstalled(seed, rarity, permanent)
   local entity = Entity()
-  entity.invincible  = false
-  entity.dockable    = true
+  entity.invincible    = false
+  entity.dockable      = true
   Boarding().boardable = true
+  
+  local thrusters = Thrusters()
+  thrusters.basePitch  = thrusters.basePitch - 4.0
+  thrusters.baseYaw    = thrusters.baseYaw - 4.0
+  thrusters.baseRoll   = thrusters.baseRoll - 4.0
+  thrusters.fixedStats = false
 end
 
 
@@ -103,8 +116,9 @@ function getTooltipLines(seed, rarity, permanent)
   table.insert(texts, {ltext = "Energy Capacity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/battery-pack-alt.png"})
   table.insert(texts, {ltext = "Recharge Rate"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/power-unit.png"})
   table.insert(texts, {ltext = "Cargo Hold"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/crate.png"})
-  table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
-  table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
+  table.insert(texts, {ltext = "Rotation"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/move.png"})
+  table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/anchor.png"})
+  table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/boarding-malus.png"})
   return texts, nil
 end
 
