@@ -75,6 +75,7 @@ valid_systems["valuablesdetector"]       = true
 valid_systems["velocitybypass"]          = true
 valid_systems["weaknesssystem"]          = true
 valid_systems["wormholeopener"]          = true
+valid_systems["adminsystem"]             = true
 
 -- Command definition
 command.name        = "make"
@@ -132,7 +133,7 @@ command:AddFlag({
       return "Please supply a system type"
     end
 
-    if type(valid_systems[arg]) == nil then
+    if not valid_systems[arg] then
       return "Please supply a valid system type (use -ls to see a list of types)"
     end
 
@@ -211,8 +212,7 @@ command:AddFlag({
       return "Please provide a valid sector"
     end
 
-    command:Debug("Setting x to ${x} and y to ${y}"%_t % {
-      x = x, y =y})
+    command:Debug("Setting x to ${x} and y to ${y}"%_t % {x = x, y =y})
     command.data.sectorX = x
     command.data.sectorY = y
   end})
