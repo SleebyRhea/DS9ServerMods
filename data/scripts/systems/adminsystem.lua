@@ -7,56 +7,63 @@ include ("utility")
 FixedEnergyRequirement = true
 Unique = true
 
+function invalidInstall(faction)
+  if onServer() then  
+    onUninstalled()
+    
+    if not faction then
+      if faction.isAlliance or faction.isPlayer then
+        faction:sendChatMessage("", ChatMessageType.Error, 
+          "You must be an admin to use FUGU-X")
+      end
+    end
+
+    print("Invalid attempt to install FUGU-X by ${t}:${i} on ${s}"%_t %{
+      t = faction.isAlliance and "alliance" or (faction.isPlayer and "player" or "faction"),
+      i = faction.index, s = Entity().name})
+    terminate()
+  end
+end
+
 function onInstalled(seed, rarity, permanent) 
   local faction    = Faction()
   local entity     = Entity()
-  local errInvalid = "Invalid attempt to install FUGU-X"
+  
   
   -- Only allow this to be used on admin ships
   if faction then
     if faction.isAIFaction then
-      if onServer() then print(errInvalid) end
-      terminate()
+      invalidInstall(nil)
+      return
     end
     
     if faction.isAlliance then
-      Alliance(faction.index):sendChatMessage("Server",
-        ChatMessageType.Error, "You must be an admin to use FUGU-X")
-      if onServer() then print(errInvalid) end
-      terminate()
+      invalidInstall(Alliance(faction.index))
+      return
     end
     
-    if not faction.isPlayer then
-      Player(faction.index):sendChatMessage("Server",
-        ChatMessageType.Error, "You must be an admin to use FUGU-X")
-      if onServer() then print(errInvalid) end
-      terminate()
-    end
-    
-    if onServer() then
+    if onServer() and faction.isPlayer then
       if not Server():hasAdminPrivileges(Player(faction.index)) then
-        if onServer() then print(errInvalid) end
-        terminate()
+        invalidInstall(Player(faction.index))
+        return
       end
     end
   end
   
-  if not permanent then return end
-  
   if onServer() then
-    print("player:${i} has installed FUGU-X onto: ${n}"%_t % {
+    print("player:${i} has FUGU-X installed on: ${n}"%_t % {
       i = entity.factionIndex,
       n = entity.name})
   end
-  
-  -- Make this ship invulberable
+    
+  -- Make this ship invulnerable
   entity.invincible    = true
   entity.dockable      = false
   Boarding().boardable = false
-  
+
   -- Stat bonuses
   addAbsoluteBias(StatsBonuses.Velocity, 10000000.0)
-  addBaseMultiplier(StatsBonuses.Acceleration, 20)
+  addBaseMultiplier(StatsBonuses.Acceleration, 15)
   addBaseMultiplier(StatsBonuses.GeneratedEnergy, 1000)
   addBaseMultiplier(StatsBonuses.EnergyCapacity, 1000)
   addBaseMultiplier(StatsBonuses.BatteryRecharge, 100)
@@ -64,8 +71,9 @@ function onInstalled(seed, rarity, permanent)
 end
 
 function onUninstalled(seed, rarity, permanent)
-  Entity().invincible  = false
-  Entity().dockable    = true
+  local entity = Entity()
+  entity.invincible  = false
+  entity.dockable    = true
   Boarding().boardable = true
 end
 
@@ -74,7 +82,7 @@ function getName(seed, rarity)
 end
 
 function getIcon(seed, rarity)
-  return "data/textures/icons/wrench.png"
+  return "data/textures/icons/bug-report.png"
 end
 
 function getPrice(seed, rarity)
@@ -83,21 +91,16 @@ end
 
 function getTooltipLines(seed, rarity, permanent)
   local texts = {}
-  table.insert(texts, {ltext = "Dockable"%_t, rtext = "NO", icon = "data/textures/icons/tinker.png", boosted = permanent})
-  table.insert(texts, {ltext = "Boardable"%_t, rtext = "NO", icon = "data/textures/icons/tinker.png", boosted = permanent})
-  table.insert(texts, {ltext = "Invincible"%_t, rtext = "YES", icon = "data/textures/icons/tinker.png", boosted = permanent})
-  table.insert(texts, {ltext = "Velocity"%_t, rtext = "YES", icon = "data/textures/icons/speedometer.png", boosted = permanent})
-  table.insert(texts, {ltext = "Acceleration"%_t, rtext = "YES", icon = "data/textures/icons/rocket-thruster.png", boosted = permanent})
-  table.insert(texts, {ltext = "Generated Energy"%_t, rtext = "YES", icon = "data/textures/icons/electric.png", boosted = permanent})
-  table.insert(texts, {ltext = "Energy Capacity"%_t, rtext = "YES", icon = "data/textures/icons/battery-pack-alt.png", boosted = permanent})
-  table.insert(texts, {ltext = "Recharge Rate"%_t, rtext = "YES", icon = "data/textures/icons/power-unit.png", boosted = permanent})
-  table.insert(texts, {ltext = "Cargo Hold"%_t, rtext = "YES", icon = "data/textures/icons/crate.png", boosted = permanent})
-
-  if not permanent then
-    return {}, texts
-  else
-    return texts, texts
-  end
+  table.insert(texts, {ltext = "Dockable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
+  table.insert(texts, {ltext = "Boardable"%_t, boosted=true, rtext = "NO", icon = "data/textures/icons/tinker.png"})
+  table.insert(texts, {ltext = "Invincible"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/tinker.png"})
+  table.insert(texts, {ltext = "Velocity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/speedometer.png"})
+  table.insert(texts, {ltext = "Acceleration"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/rocket-thruster.png"})
+  table.insert(texts, {ltext = "Generated Energy"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/electric.png"})
+  table.insert(texts, {ltext = "Energy Capacity"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/battery-pack-alt.png"})
+  table.insert(texts, {ltext = "Recharge Rate"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/power-unit.png"})
+  table.insert(texts, {ltext = "Cargo Hold"%_t, boosted=true, rtext = "YES", icon = "data/textures/icons/crate.png"})
+  return texts, nil
 end
 
 function getDescriptionLines(seed, rarity, permanent)
