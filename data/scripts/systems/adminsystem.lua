@@ -68,13 +68,6 @@ function onInstalled(seed, rarity, permanent)
   addBaseMultiplier(StatsBonuses.EnergyCapacity, 1000)
   addBaseMultiplier(StatsBonuses.BatteryRecharge, 100)
   addAbsoluteBias(StatsBonuses.CargoHold, 100000)
-  
-  -- Set rotation bonuses
-  local thrusters      = Thrusters()
-  thrusters.basePitch  = thrusters.basePitch + 4.0
-  thrusters.baseYaw    = thrusters.baseYaw + 4.0
-  thrusters.baseRoll   = thrusters.baseRoll + 4.0
-  thrusters.fixedStats = true
 end
 
 
@@ -83,12 +76,6 @@ function onUninstalled(seed, rarity, permanent)
   entity.invincible    = false
   entity.dockable      = true
   Boarding().boardable = true
-  
-  local thrusters = Thrusters()
-  thrusters.basePitch  = thrusters.basePitch - 4.0
-  thrusters.baseYaw    = thrusters.baseYaw - 4.0
-  thrusters.baseRoll   = thrusters.baseRoll - 4.0
-  thrusters.fixedStats = false
 end
 
 
