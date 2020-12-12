@@ -11,7 +11,7 @@ function invalidInstall(faction)
   if onServer() then  
     onUninstalled()
     
-    if not faction then
+    if faction then
       if faction.isAlliance or faction.isPlayer then
         faction:sendChatMessage("", ChatMessageType.Error, 
           "You must be an admin to use FUGU-X")
