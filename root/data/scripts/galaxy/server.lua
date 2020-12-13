@@ -9,9 +9,12 @@
 
 ]]
 
--- Create our own login event output for more reliable tracking
 function onPlayerCreated_DS9Mods(playerIndex)
   Player(playerIndex):addScriptOnce("data/scripts/player/welcomeemail.lua")
-end
+end:q
 
-Galaxy():registerCallback("onPlayerCreated", "onPlayerCreated_DS9Mods")
+local vanillaInitialize_DS9Mods = initialize
+function initialize(...)
+  vanillaInitialize_DS9Mods(...)
+  Galaxy():registerCallback("onPlayerCreated", "onPlayerCreated_DS9Mods")
+end
