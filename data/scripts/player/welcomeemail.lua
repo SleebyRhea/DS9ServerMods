@@ -5,7 +5,7 @@
   Sends off an email to a newly joined player using either the defaults
   provided below, or via a WelcomeEmail.txt file located in the Server
   root directory. Also optionally (and by default) adds one or more
-  turrets and/or systems of your spefication to the email as an attachment.
+  turrets and/or systems of your specification to the email as an attachment.
 
 ]]
 
@@ -22,6 +22,14 @@ if onServer() then
   local maildefFile = moddir .. "WelcomeSettings.lua"
 
   local mailDefChecks = {
+    notify = function(arg, def)
+      if type(arg) ~= "boolean" then
+        print("Invalid notify flag (expected boolean)")
+        return false
+      end
+      return def
+    end,
+
     sender = function(arg, def)
       if type(arg) ~= "string" then
         print("Invalid sender value in mail definition file (expected string)")
@@ -368,6 +376,11 @@ if onServer() then
     end
 
     player:addMail(mail)
+
+    if maildef.notify then
+      player:sendChatMessage("Server", ChatMessageType.Information,
+        "Please your mail for your welcome package")
+    end
 
     output = "Sent welcome email to "..player.name
     
