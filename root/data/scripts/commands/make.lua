@@ -279,10 +279,7 @@ command:SetExecute(function(sender)
     command.data.count = 1
   end
 
-  local mail   = Mail()
   local player = Player()
-  mail.header = "Generated Items"
-  mail.sender = "Server"
 
   -- Start generation, and drop the objects on the runner
   if command.data.turrettype then
@@ -299,12 +296,10 @@ command:SetExecute(function(sender)
       command.data.turrettype,
       command.data.material)
     for i=1, command.data.count, 1 do
-      command:Debug("Added a turret")
-      mail:addTurret(turret)
+      player:getInventory():addOrDrop(InventoryTurret(turret))
     end
 
-    player:addMail(mail)
-    return 0, "Generated ${c} turret[s]"%_t % {c = command.data.count}
+    return 0, "", "Generated ${c} turret[s]"%_t % {c = command.data.count}
   end
 
   if command.data.systemtype then
@@ -315,11 +310,10 @@ command:SetExecute(function(sender)
     command.data.rarity, seed)
 
     for i=1, command.data.count, 1 do
-      mail:addItem(system)
+      player:getInventory():addOrDrop(system)
     end
-    
-    player:addMail(mail)
-    return 0, "Generated ${c} systems[s]"%_t % {c = command.data.count}
+  
+    return 0, "", "Generated ${c} systems[s]"%_t % {c = command.data.count}
   end
 
   return 1, "Invalid execution point reached", ""
