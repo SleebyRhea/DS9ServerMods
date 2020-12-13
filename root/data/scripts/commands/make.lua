@@ -15,10 +15,10 @@ package.path = package.path .. ";data/scripts/lib/?.lua"
 include("stringutility")
 include("avocontrol-utils")
 
-local weapontype      = include("weapontype")
-local turretgen       = include("turretgenerator")
-local command         = include("avocontrol-command")
-local valid_systems   = {}
+local weapontype    = include("weapontype")
+local turretgen     = include("turretgenerator")
+local command       = include("avocontrol-command")
+local valid_systems = {}
 
 -- We have to manually define these -- as unlike turrets -- Avorion doesn't
 -- provide an interface for us to know what can and can't be added as a system.
