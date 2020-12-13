@@ -14,4 +14,4 @@ function onPlayerCreated_DS9Mods(playerIndex)
   Player(playerIndex):addScriptOnce("data/scripts/player/welcomeemail.lua")
 end
 
-Server():registerCallback("onPlayerCreated", "onPlayerCreated_DS9Mods")
+Galaxy():registerCallback("onPlayerCreated", "onPlayerCreated_DS9Mods")
