@@ -284,6 +284,13 @@ command:SetExecute(function(sender)
       player:getInventory():addOrDrop(InventoryTurret(turret))
     end
 
+    print("${n} generated ${c} ${rN} ${mN} ${tN} turret[s]"%_T % {
+      n  = player.name,
+      c  = command.data.count,
+      rN = command.data.rarity.name,
+      mN = command.data.material.name,
+      tN = WeaponTypes.nameByType[command.data.turrettype]})
+
     return 0, "", "Generated ${c} turret[s]"%_t % {c = command.data.count}
   end
 
@@ -298,6 +305,12 @@ command:SetExecute(function(sender)
       player:getInventory():addOrDrop(system)
     end
   
+    print("${n} generated ${c} ${rN} ${sN} systems[s]"%_T % {
+      n  = player.name,
+      c  = command.data.count,
+      rN = command.data.rarity.name,
+      sN = system.name})
+
     return 0, "", "Generated ${c} systems[s]"%_t % {c = command.data.count}
   end
 
