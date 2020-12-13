@@ -55,7 +55,31 @@ if onServer() then
     end,
 
     resources = function(arg, def)
-      return false
+      if type(arg) ~= "table" then
+        print("Invalid resources value in mail definition file (expected table)")
+        return false
+      end
+
+      local new = {}
+
+      for material, v in pairs(arg) do
+        if not IsValidMaterialString(material) then
+          print(tostring(material).." is not a valid material")
+          return false
+        end
+
+        local value = tonumber(v)
+
+        if type(value) ~= "number" then
+          print(tostring(v).." is not a valid number for "..material)
+          return false
+        end
+
+        new[string.lower(material)] = value
+      end
+
+      def.resources = new
+      return def
     end,
 
     turret_count = function(arg, def)
