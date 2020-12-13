@@ -11,7 +11,7 @@
 
 function onPlayerCreated_DS9Mods(playerIndex)
   Player(playerIndex):addScriptOnce("data/scripts/player/welcomeemail.lua")
-end:q
+end
 
 local vanillaInitialize_DS9Mods = initialize
 function initialize(...)
