@@ -19,24 +19,6 @@ local weapontype      = include("weapontype")
 local turretgen       = include("turretgenerator")
 local command         = include("avocontrol-command")
 local valid_systems   = {}
-local valid_materials = {}
-local valid_rarities  = {}
-
-valid_materials["Iron"]     = true
-valid_materials["Titanium"] = true
-valid_materials["Naonite"]  = true
-valid_materials["Trinium"]  = true
-valid_materials["Xanian"]   = true
-valid_materials["Ogonite"]  = true
-valid_materials["Avorion"]  = true
-
-valid_rarities["Petty"]       = true
-valid_rarities["Common"]      = true
-valid_rarities["Uncommon"]    = true
-valid_rarities["Rare"]        = true
-valid_rarities["Exceptional"] = true
-valid_rarities["Exotic"]      = true
-valid_rarities["Legendary"]   = true
 
 -- We have to manually define these -- as unlike turrets -- Avorion doesn't
 -- provide an interface for us to know what can and can't be added as a system.
@@ -156,12 +138,14 @@ command:AddFlag({
       return "Resource name ${r} is invalid"%_T % {r=tostring(arg)}
     end
 
-    if not valid_materials[arg] then
+    local material = IsValidMaterialString(arg)
+
+    if type(material) ~= "number" then
       return "Resource name ${r} is invalid"%_T % {r=tostring(arg)}
     end
 
-    command:Debug("Setting "..tostring(MaterialType[arg]).." as the meterial")
-    command.data.material = Material(MaterialType[arg])
+    command:Debug("Setting "..tostring(material).." as the material")
+    command.data.material = Material(material)
   end})
 
 
@@ -229,11 +213,12 @@ command:AddFlag({
         a=tostring(arg), c=table.concat({...},", ")}
     end
 
-    if not valid_rarities[arg] then
+    local rarity = IsValidRarityString(arg)
+    if type(rarity) ~= "number" then
       return "Please supply a valid rarity"
     end
 
-    command.data.rarity = Rarity(RarityType[arg])
+    command.data.rarity = Rarity(rarity)
   end})
 
 
