@@ -15,10 +15,10 @@ package.path = package.path .. ";data/scripts/lib/?.lua"
 include("stringutility")
 include("avocontrol-utils")
 
-local weapontype    = include("weapontype")
-local turretgen     = include("turretgenerator")
-local command       = include("avocontrol-command")
-local valid_systems = {}
+local weapontype      = include("weapontype")
+local turretgen       = include("turretgenerator")
+local command         = include("avocontrol-command")
+local valid_systems   = {}
 
 -- We have to manually define these -- as unlike turrets -- Avorion doesn't
 -- provide an interface for us to know what can and can't be added as a system.
@@ -284,8 +284,8 @@ command:SetExecute(function(sender)
       player:getInventory():addOrDrop(InventoryTurret(turret))
     end
 
-    print("${n} generated ${c} ${rN} ${mN} ${tN} turret[s]"%_T % {
-      n  = player.name,
+    print("makeCommandRunEvent: player:${p} generated ${c} ${rN} ${mN} ${tN} turret[s]"%_T % {
+      p  = player.name,
       c  = command.data.count,
       rN = command.data.rarity.name,
       mN = command.data.material.name,
@@ -305,8 +305,8 @@ command:SetExecute(function(sender)
       player:getInventory():addOrDrop(system)
     end
   
-    print("${n} generated ${c} ${rN} ${sN} systems[s]"%_T % {
-      n  = player.name,
+    print("makeCommandRunEvent: player:${p} generated ${c} ${rN} ${sN} system[s]"%_T % {
+      p  = player.index,
       c  = command.data.count,
       rN = command.data.rarity.name,
       sN = system.name})
