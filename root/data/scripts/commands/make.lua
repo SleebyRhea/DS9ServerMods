@@ -285,7 +285,7 @@ command:SetExecute(function(sender)
     end
 
     print("makeCommandRunEvent: player:${p} generated ${c} ${rN} ${mN} ${tN} turret[s]"%_T % {
-      p  = player.name,
+      p  = player.index,
       c  = command.data.count,
       rN = command.data.rarity.name,
       mN = command.data.material.name,
