@@ -10,6 +10,8 @@
 
 -- namespace ReadTheRules
 local ReadTheRules = {}
+local res
+local rect
 
 function ReadTheRules.initialize()
   if onClient() then
