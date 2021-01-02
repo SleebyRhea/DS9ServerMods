@@ -89,7 +89,7 @@ command:SetExecute(function(sender)
     local player = Player(sender)
     print("Player <${p}> has read the server rules"%_T % {
       p=player.name})
-    if player:hasScript("readtherules.lua")
+    if player:hasScript("readtherules.lua") then
       player:removeScript("readtherules.lua")
     end
   end
