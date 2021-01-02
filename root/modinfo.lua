@@ -1,3 +1,4 @@
+
 meta =
 {
     -- ID of your mod; Make sure this is unique!
@@ -25,7 +26,7 @@ meta =
     -- This will be used to check for unmet dependencies or incompatibilities, and to check compatibility between clients and dedicated servers with mods.
     -- If a client with an unmatching major or minor mod version wants to log into a server, login is prohibited.
     -- Unmatching patch version still allows logging into a server. This works in both ways (server or client higher or lower version).
-    version = "1.1",
+    version = "1.1.1",
 
     -- If your mod requires dependencies, enter them here. The game will check that all dependencies given here are met.
     -- Possible attributes:
@@ -43,7 +44,6 @@ meta =
     --      {id = "OptionalMod", min = "0.2", optional = true}, -- we support OptionalMod optionally, starting at version 0.2
     -- },
     dependencies = {
-        --{id = "2303642289", min = "1.0"},
         {id = "Avorion", min = "1.0", max = "1.3.5"}
     },
 
@@ -55,7 +55,7 @@ meta =
 
     -- Set to true if the mod changes the savegame in a potentially breaking way, as in it adds scripts or mechanics that get saved into database and no longer work once the mod gets disabled
     -- logically, if a mod is client-side only, it can't alter savegames, but Avorion doesn't check for that at the moment
-    saveGameAltering = false,
+    saveGameAltering = true,
 
     -- Contact info for other users to reach you in case they have questions
     contact = "@Sleepy Fugu#3611",
