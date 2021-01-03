@@ -69,10 +69,10 @@ function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
       event = "allianceDestroyedNPCStationEvent"
     end
 
-    print("${e}: ${x}:${y} ${ai} ${an}"%_T % {
+    print("${e}: ${x}:${y} ${ai} ${fn}"%_T % {
       e=event, x=x, y=y,
       ai=destroyer.index,
-      an=destroyer.name})
+      fn=Faction().name})
   end
 end
 
