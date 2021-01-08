@@ -14,6 +14,8 @@ do
     local sector   = Sector()
     local alliance = (player.alliance and player.alliance or nil)
 
+    player:addScriptOnce("data/scripts/player/background/ds9-galacticlawenforcement.lua")
+
     local old_path = package.path
     package.path = package.path .. ";data/scripts/lib/?.lua"
     include("stringutility")
