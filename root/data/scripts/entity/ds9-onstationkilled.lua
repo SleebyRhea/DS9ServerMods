@@ -77,7 +77,7 @@ function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
     print("${e}: ${x}:${y} ${ai} ${fn}"%_T % {
       e=event, x=x, y=y,
       ai=destroyer.index,
-      fn=Faction().name})
+      fn=Faction().name%_t})
   end
 end
 
