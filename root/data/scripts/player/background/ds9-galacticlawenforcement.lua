@@ -35,7 +35,7 @@ function GalacticLawEnforcement.GLEonMailAdded(_, mail, mailIndex)
 
   mail.text = "This mail has been scanned, and has been found to contain " 
     .. "materials that are not to leave the Core. The offending contents have "
-    .. "been removed.\n"
+    .. "been removed (see rule #3).\n"
     .. "        -Galactic Customs\n\n"
     .. "Original Message <from: ${sF}>\n\n"%_T % {sF = mail.sender.text}
     .. mail.text.text
