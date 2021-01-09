@@ -34,7 +34,7 @@ end
 
 function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
   if onServer() then
-    if not e:hasScript("data/scripts/entity/merchants/smugglersmarket.lua") then
+    if not Entity():hasScript("data/scripts/entity/merchants/smugglersmarket.lua") then
       if Entity():getValue("skip_ds9_tracking") then
         return
       end
