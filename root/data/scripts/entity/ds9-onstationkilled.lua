@@ -9,8 +9,11 @@ function DS9OnStationKilled.initialize()
   if onServer() then
     -- If the entity in question is a pirate, just kill the script.
     local e = Entity()
-    if e:getValue("skip_ds9_tracking") then
-      terminate()
+
+    if not e:hasScript("data/scripts/entity/merchants/smugglersmarket.lua") then
+      if e:getValue("skip_ds9_tracking") then
+        terminate()
+      end
     end
 
     e:registerCallback("onCollision", "onCollision")
@@ -31,8 +34,10 @@ end
 
 function DS9OnStationKilled.onDestroyed(index, destroyerIndex)
   if onServer() then
-    if Entity():getValue("skip_ds9_tracking") then
-      return
+    if not e:hasScript("data/scripts/entity/merchants/smugglersmarket.lua") then
+      if Entity():getValue("skip_ds9_tracking") then
+        return
+      end
     end
 
     local destroyer
