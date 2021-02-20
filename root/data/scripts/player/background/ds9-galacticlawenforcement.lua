@@ -4,7 +4,6 @@ GalacticLawEnforcement = {}
 include("lib/avocontrol-utils")
 
 function GalacticLawEnforcement.initialize()
-  print("Starting law enforcement")
   if onServer() then
     Player():registerCallback("onMailAdded", "GLEonMailAdded")
   end
