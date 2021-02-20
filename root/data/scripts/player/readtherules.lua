@@ -15,6 +15,7 @@ ReadTheRules = {}
 local res
 local rect
 
+-- UI code taken from AFKicker, thanks Fryke for your awesome mod :)
 function ReadTheRules.initialize()
   if onClient() then
     res           = getResolution()
